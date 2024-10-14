@@ -18,7 +18,7 @@
                     {% endif %}
                 </li>
                 <div>
-                    <a href="{% url 'todo_edit' todo.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a href="{% url 'todo_edit' todo.pk %}" class="btn btn-sm btn-outline-primary my-2">Edit</a>
                     <a href="{% url 'todo_delete' todo.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
                 </div>
             {% endfor %}
