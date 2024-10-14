@@ -8,7 +8,13 @@
 <div class="card">
     <div class="card-body">
         <h2 class="card-title">Todo List</h2>
-        <a href="{% url "todo_add" %}" class="btn btn-success mb-3">Add New Task</a>
+        <button class="btn btn-success mb-3" id="add-new-task-button">Add New Task</button>
+        <div id="new-task-form-container" class="mb-3" style="display: none;">
+            <input type="text" id="new-task-title" class="form-control mb-1" placeholder="Task Title">
+            <textarea id="new-task-description" class="form-control mb-1" placeholder="Task Description"></textarea>
+            <button class="btn btn-primary btn-sm" id="save-new-task-button">Save</button>
+            <button class="btn btn-secondary btn-sm" id="cancel-new-task-button">Cancel</button>
+        </div>
         <ul class="list-group">
             {% for todo in todos %}
                 <li class="list-group-item" id="todo-{{ todo.pk }}">

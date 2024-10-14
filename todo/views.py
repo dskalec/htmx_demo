@@ -76,3 +76,18 @@ def ajax_edit_todo_view(request, pk):
             return JsonResponse({'status': 'error', 'message': 'Todo not found'}, status=404)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+
+
+@csrf_exempt
+def ajax_add_todo_view(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description', '')
+
+        if not title:
+            return JsonResponse({'status': 'error', 'message': 'Title is required'}, status=400)
+
+        todo = Todo.objects.create(title=title, description=description)
+        return JsonResponse({'status': 'ok', 'id': todo.pk})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

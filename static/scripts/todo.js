@@ -111,4 +111,65 @@ $(document).ready(function() {
             <p class="mb-1 text-muted todo-description">${description}</p>
         `);
     });
+
+    // Handle add new task button click
+    $('#add-new-task-button').click(function() {
+        $('#new-task-form-container').show();
+    });
+
+    // Handle cancel button click in the new task form
+    $('#cancel-new-task-button').click(function() {
+        $('#new-task-title').val('');
+        $('#new-task-description').val('');
+        $('#new-task-form-container').hide();
+    });
+
+    // Handle save new task button click
+    $('#save-new-task-button').click(function() {
+        let title = $('#new-task-title').val();
+        let description = $('#new-task-description').val();
+
+        if (title.trim() === '') {
+            alert('Title is required');
+            return;
+        }
+
+        $.ajax({
+            url: `/ajax-add/`,
+            method: 'POST',
+            data: {
+                'title': title,
+                'description': description,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            success: function(response) {
+                if (response.status === 'ok') {
+                    let newTodoHtml = `
+                        <li class="list-group-item" id="todo-${response.id}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="todo-content" data-id="${response.id}">
+                                    <h5 class="mb-1 todo-title">${title}</h5>
+                                    <p class="mb-1 text-muted todo-description">${description}</p>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <input type="checkbox" class="todo-completed-checkbox me-2 form-check-input" data-id="${response.id}">
+                                    <span id="badge-${response.id}" class="badge bg-warning">Not Completed</span>
+                                    <button class="btn btn-primary btn-sm ms-3 edit-todo-button" data-id="${response.id}">Edit</button>
+                                    <button class="btn btn-danger btn-sm ms-3 delete-todo-button" data-id="${response.id}">Delete</button>
+                                </div>
+                            </div>
+                        </li>`;
+                    $('.list-group').prepend(newTodoHtml);
+                    $('#new-task-title').val('');
+                    $('#new-task-description').val('');
+                    $('#new-task-form-container').hide();
+                } else {
+                    alert('There was an error creating the task. Please try again.');
+                }
+            },
+            error: function() {
+                alert('There was an error creating the task. Please try again.');
+            }
+        });
+    });
 });
