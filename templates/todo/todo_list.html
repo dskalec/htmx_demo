@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Todo List</h2>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+                {{ todo.title }}
+                <span>
+                    {% if todo.completed %}
+                        <span>Completed</span>
+                    {% else %}
+                        <span>Not Completed</span>
+                    {% endif %}
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
