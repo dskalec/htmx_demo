@@ -22,6 +22,7 @@
                             <span id="badge-{{ todo.pk }}" class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
                                 {% if todo.completed %}Completed{% else %}Not Completed{% endif %}
                             </span>
+                            <button class="btn btn-danger btn-sm ms-3 delete-todo-button" data-id="{{ todo.pk }}">Delete</button>
                         </div>
                     </div>
                 </li>
