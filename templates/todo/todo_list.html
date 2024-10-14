@@ -4,7 +4,9 @@
 
 {% block content %}
 <div>
-    <h2>Todo List</h2>
+    <h2>
+        <a href="{% url 'todo_list' %}">Todo List</a>
+    </h2>
 
     <ul>
         {% for todo in todos %}
