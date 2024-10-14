@@ -61,3 +61,18 @@ def ajax_delete_todo_view(request, pk):
             return JsonResponse({'status': 'error', 'message': 'Todo not found'}, status=404)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+
+
+@csrf_exempt
+def ajax_edit_todo_view(request, pk):
+    if request.method == 'POST':
+        try:
+            todo = Todo.objects.get(pk=pk)
+            todo.title = request.POST.get('title')
+            todo.description = request.POST.get('description')
+            todo.save()
+            return JsonResponse({'status': 'ok'})
+        except Todo.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Todo not found'}, status=404)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

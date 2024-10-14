@@ -11,17 +11,18 @@
         <a href="{% url "todo_add" %}" class="btn btn-success mb-3">Add New Task</a>
         <ul class="list-group">
             {% for todo in todos %}
-                <li class="list-group-item">
+                <li class="list-group-item" id="todo-{{ todo.pk }}">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="mb-1">{{ todo.title }}</h5>
-                            <p class="mb-1 text-muted">{{ todo.description }}</p>
+                        <div class="todo-content" data-id="{{ todo.pk }}">
+                            <h5 class="mb-1 todo-title">{{ todo.title }}</h5>
+                            <p class="mb-1 text-muted todo-description">{{ todo.description }}</p>
                         </div>
                         <div class="d-flex align-items-center">
                             <input type="checkbox" class="todo-completed-checkbox me-2 form-check-input" data-id="{{ todo.pk }}" {% if todo.completed %}checked{% endif %}>
                             <span id="badge-{{ todo.pk }}" class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
                                 {% if todo.completed %}Completed{% else %}Not Completed{% endif %}
                             </span>
+                            <button class="btn btn-primary btn-sm ms-3 edit-todo-button" data-id="{{ todo.pk }}">Edit</button>
                             <button class="btn btn-danger btn-sm ms-3 delete-todo-button" data-id="{{ todo.pk }}">Delete</button>
                         </div>
                     </div>
