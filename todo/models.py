@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Todo(models.Model):
-    title = models.TextField(verbose_name=_("Title"))
+    title = models.CharField(verbose_name=_("Title"), max_length=255)
     completed = models.BooleanField(verbose_name=_("Is completed?"), default=False)
     created_at = models.DateTimeField(verbose_name=_("Created at"), auto_now_add=True)
     completed_at = models.DateTimeField(verbose_name=_("Completed at"), null=True, blank=True)
