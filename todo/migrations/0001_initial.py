@@ -12,18 +12,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Todo',
+            name="Todo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.TextField(verbose_name='Title')),
-                ('completed', models.BooleanField(default=False, verbose_name='Is completed?')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
-                ('completed_at', models.DateTimeField(blank=True, null=True, verbose_name='Completed at')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("title", models.TextField(verbose_name="Title")),
+                ("completed", models.BooleanField(default=False, verbose_name="Is completed?")),
+                ("created_at", models.DateTimeField(auto_now_add=True, verbose_name="Created at")),
+                ("completed_at", models.DateTimeField(blank=True, null=True, verbose_name="Completed at")),
             ],
             options={
-                'verbose_name': 'Todo',
-                'verbose_name_plural': 'Todos',
-                'ordering': ['-created_at'],
+                "verbose_name": "Todo",
+                "verbose_name_plural": "Todos",
+                "ordering": ["-created_at"],
             },
         ),
     ]
