@@ -1,0 +1,16 @@
+<input type="checkbox"
+       class="todo-completed-checkbox me-2 form-check-input"
+       {% if todo.completed %}checked{% endif %}
+       hx-post="{% url 'ajax_complete' todo.pk %}"
+       hx-target="#todo-checkbox-container-{{ todo.pk }}"
+       hx-swap="innerHTML">
+        <!--  hx-swap="innerHTML swap:1s"> -->
+        <!--  hx-swap="innerHTML transition:true"> -->
+<span id="badge-{{ todo.pk }}"
+      class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
+    {% if todo.completed %}
+        Completed on {{ todo.completed_at|date:"Y-m-d H:i:s" }}
+    {% else %}
+        Not Completed
+    {% endif %}
+</span>
