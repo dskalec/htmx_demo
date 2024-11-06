@@ -16,7 +16,11 @@
                             <p class="mb-1 text-muted">{{ todo.description }}</p>
                         </div>
                         <span class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
-                            {% if todo.completed %}Completed{% else %}Not Completed{% endif %}
+                            {% if todo.completed %}
+                                Completed on {{ todo.completed_at|date:"Y-m-d H:i" }}
+                            {% else %}
+                                Not Completed
+                            {% endif %}
                         </span>
                     </div>
                 </li>
