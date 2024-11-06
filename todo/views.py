@@ -43,7 +43,13 @@ def ajax_complete_todo_view(request, pk):
             todo.completed = completed
             todo.completed_at = now() if completed else None
             todo.save()
-            return JsonResponse({'status': 'ok'})
+            return JsonResponse(
+                {
+                    'status': 'ok',
+                    'completed': todo.completed,
+                    'completed_at': todo.completed_at.strftime('%Y-%m-%d %H:%M:%S') if todo.completed_at else ''
+                }
+            )
         except Todo.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Todo not found'}, status=404)
 
