@@ -8,15 +8,16 @@ $(document).ready(function() {
       method: 'POST',
       data: {
         'completed': completed,
-        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
       },
       success: function (response) {
         if (response.status === 'ok') {
           let badge = $(`#badge-${todoId}`);
           if (completed) {
-            badge.removeClass('bg-warning').addClass('bg-success').text('Completed');
+            badge.removeClass('bg-warning').addClass('bg-success')
+                  .text(`Completed on ${response.completed_at}`);
           } else {
-            badge.removeClass('bg-success').addClass('bg-warning').text('Not Completed');
+            badge.removeClass('bg-success').addClass('bg-warning')
+                  .text('Not Completed');
           }
         }
       },
