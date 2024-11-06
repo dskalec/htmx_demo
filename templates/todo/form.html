@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+
+{% block title %}
+    {% if object %}
+        Edit Todo
+    {% else %}
+        Add Todo
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">
+                {% if object %}
+                    Edit Todo
+                {% else %}
+                    Add Todo
+                {% endif %}
+            </h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    {% if object %}
+                        Update
+                    {% else %}
+                        Save
+                    {% endif %}
+                </button>
+                <a href="{% url 'todo_list' %}" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

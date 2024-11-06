@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ("completed", models.BooleanField(default=False, verbose_name="Is completed?")),
                 ("created_at", models.DateTimeField(auto_now_add=True, verbose_name="Created at")),
                 ("completed_at", models.DateTimeField(blank=True, null=True, verbose_name="Completed at")),
+
             ],
             options={
                 "verbose_name": "Todo",

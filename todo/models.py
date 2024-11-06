@@ -11,9 +11,9 @@ class Todo(models.Model):
     completed_at = models.DateTimeField(verbose_name=_("Completed at"), null=True, blank=True)
 
     class Meta:
-        verbose_name = _('Todo')
-        verbose_name_plural = _('Todos')
-        ordering = ['-created_at']
+        verbose_name = _("Todo")
+        verbose_name_plural = _("Todos")
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.title
@@ -26,3 +26,11 @@ class Todo(models.Model):
         self.completed = True
         self.completed_at = now()
         self.save()
+
+    def save(self, *args, **kwargs):
+        if self.completed and not self.completed_at:
+            self.completed_at = now()
+        elif not self.completed:
+            self.completed_at = None
+
+        super().save(*args, **kwargs)

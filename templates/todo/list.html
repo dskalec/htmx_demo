@@ -6,6 +6,7 @@
 <div class="card">
     <div class="card-body">
         <h2 class="card-title">Todo List</h2>
+        <a href="{% url "todo_add" %}" class="btn btn-success mb-3">Add New Task</a>
         <ul class="list-group">
             {% for todo in todos %}
                 <li class="list-group-item">
@@ -15,10 +16,18 @@
                             <p class="mb-1 text-muted">{{ todo.description }}</p>
                         </div>
                         <span class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
-                            {% if todo.completed %}Completed{% else %}Not Completed{% endif %}
+                            {% if todo.completed %}
+                                Completed on {{ todo.completed_at|date:"Y-m-d H:i" }}
+                            {% else %}
+                                Not Completed
+                            {% endif %}
                         </span>
                     </div>
                 </li>
+                <div>
+                    <a href="{% url 'todo_edit' todo.pk %}" class="btn btn-sm btn-outline-primary my-2">Edit</a>
+                    <a href="{% url 'todo_delete' todo.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
             {% endfor %}
         </ul>
     </div>
