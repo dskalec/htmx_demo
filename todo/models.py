@@ -11,9 +11,9 @@ class Todo(models.Model):
     completed_at = models.DateTimeField(verbose_name=_("Completed at"), null=True, blank=True)
 
     class Meta:
-        verbose_name = _("Todo")
-        verbose_name_plural = _("Todos")
-        ordering = ["-created_at"]
+        verbose_name = _('Todo')
+        verbose_name_plural = _('Todos')
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.title
