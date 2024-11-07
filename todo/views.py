@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from django.urls import reverse_lazy
-from django.utils.timezone import now
+from django.utils.timezone import localtime
 
 from .forms import TodoForm
 from .models import Todo
@@ -41,13 +41,14 @@ def ajax_complete_todo_view(request, pk):
             todo = Todo.objects.get(pk=pk)
             completed = request.POST.get('completed') == 'true'
             todo.completed = completed
-            todo.completed_at = now() if completed else None
+            todo.completed_at = localtime() if completed else None
             todo.save()
+            print(todo.completed_at)
             return JsonResponse(
                 {
                     'status': 'ok',
                     'completed': todo.completed,
-                    'completed_at': todo.completed_at.strftime('%Y-%m-%d %H:%M:%S') if todo.completed_at else ''
+                    'completed_at': todo.completed_at.strftime('%Y-%m-%d %H:%M') if todo.completed_at else ''
                 }
             )
         except Todo.DoesNotExist:
