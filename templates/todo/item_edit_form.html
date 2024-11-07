@@ -2,18 +2,20 @@
     hx-put="{% url 'ajax_edit_todo' todo.pk %}"
     hx-target="#todo-item-{{ todo.pk }}"
     hx-swap="outerHTML"
-    class="d-flex flex-column"
+    class="w-100"
 >
     <input type="text" name="title" value="{{ todo.title }}" class="form-control mb-2">
-    <textarea name="description" class="form-control mb-2">{{ todo.description }}</textarea>
-    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <textarea name="description" class="form-control mb-2"  style="min-height: 2rem; resize: none;">{{ todo.description }}</textarea>
+    <div class="d-flex">
+        <button type="submit" class="btn btn-sm btn-success me-2">Save</button>
     <!-- Cancel button triggers the view to revert to display mode -->
-    <button type="button" class="btn btn-sm btn-secondary mt-2"
-            hx-get="{% url 'ajax_cancel_edit_todo' todo.pk %}"
-            hx-target="#todo-item-{{ todo.pk }}"
-            hx-swap="outerHTML">
-        Cancel
-    </button>
+        <button type="button" class="btn btn-sm btn-secondary"
+                hx-get="{% url 'ajax_cancel_edit_todo' todo.pk %}"
+                hx-target="#todo-item-{{ todo.pk }}"
+                hx-swap="outerHTML">
+            Cancel
+        </button>
+    </div>
 </form>
 
 
