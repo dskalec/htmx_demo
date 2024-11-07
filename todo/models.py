@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.timezone import now
+from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 
@@ -24,12 +24,12 @@ class Todo(models.Model):
 
     def complete(self):
         self.completed = True
-        self.completed_at = now()
+        self.completed_at = localtime()
         self.save()
 
     def save(self, *args, **kwargs):
         if self.completed and not self.completed_at:
-            self.completed_at = now()
+            self.completed_at = localtime()
         elif not self.completed:
             self.completed_at = None
 
