@@ -19,7 +19,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             {% include "todo/item_checkbox.html" %}
-                            <button class="btn btn-danger btn-sm ms-3 delete-todo-button" data-id="{{ todo.pk }}">Delete</button>
+                            {% include "todo/item_action_buttons.html" %}
                         </div>
                     </div>
                 </li>
