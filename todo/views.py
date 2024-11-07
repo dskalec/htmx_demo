@@ -82,7 +82,6 @@ def ajax_edit_todo_view(request, pk):
         return HttpResponse("Todo not found", status=404)
     return HttpResponse("Invalid request", status=400)
 
-@csrf_exempt
 def ajax_cancel_edit_todo_view(request, pk):
     try:
         todo = Todo.objects.get(pk=pk)
@@ -92,7 +91,6 @@ def ajax_cancel_edit_todo_view(request, pk):
         return HttpResponse("Todo not found", status=404)
 
 
-@csrf_exempt
 def ajax_new_todo_form_view(request):
     """ Renders the new todo form for htmx """
     html = render_to_string("todo/item_new_form.html")
