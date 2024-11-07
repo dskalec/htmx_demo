@@ -1,0 +1,9 @@
+<button
+    class="btn btn-sm btn-danger ms-3"
+    hx-delete="{% url 'ajax_delete' todo.pk %}"
+    hx-target="closest li"
+    hx-swap="outerHTML swap:1s"
+    hx-confirm="Are you sure you want to delete item {{ todo.title }}?"
+>
+    Delete
+</button>

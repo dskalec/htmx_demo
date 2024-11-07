@@ -50,3 +50,14 @@ def ajax_complete_todo_view(request, pk):
         except Todo.DoesNotExist:
             return HttpResponse("Todo not found", status=404)
     return HttpResponse("Invalid request", status=400)
+
+@csrf_exempt
+def ajax_delete_todo_view(request, pk):
+    if request.method == 'DELETE':
+        try:
+            todo = Todo.objects.get(pk=pk)
+            todo.delete()
+            return HttpResponse(status=200)  # No Content, as we just want to remove it
+        except Todo.DoesNotExist:
+            return HttpResponse("Todo not found", status=404)
+    return HttpResponse("Invalid request", status=400)
