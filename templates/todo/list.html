@@ -1,5 +1,7 @@
 {% extends "master.html" %}
 
+{% load static %}
+
 {% block title %}Todo List{% endblock %}
 
 {% block content %}
@@ -15,21 +17,17 @@
                             <h5 class="mb-1">{{ todo.title }}</h5>
                             <p class="mb-1 text-muted">{{ todo.description }}</p>
                         </div>
-                        <span class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
-                            {% if todo.completed %}
-                                Completed on {{ todo.completed_at|date:"Y-m-d H:i" }}
-                            {% else %}
-                                Not Completed
-                            {% endif %}
-                        </span>
+                        <div class="d-flex align-items-center">
+                            {% include "todo/item_checkbox.html" %}
+                        </div>
                     </div>
                 </li>
-                <div>
-                    <a href="{% url 'todo_edit' todo.pk %}" class="btn btn-sm btn-outline-primary my-2">Edit</a>
-                    <a href="{% url 'todo_delete' todo.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                </div>
             {% endfor %}
         </ul>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'scripts/todo.js' %}"></script>
 {% endblock %}

@@ -1,5 +1,8 @@
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from django.urls import reverse_lazy
+from django.utils.timezone import localtime
 
 from .forms import TodoForm
 from .models import Todo
@@ -29,3 +32,26 @@ class TodoDeleteView(DeleteView):
     model = Todo
     template_name = "todo/confirm_delete.html"
     success_url = reverse_lazy("todo_list")
+
+
+@csrf_exempt
+def ajax_complete_todo_view(request, pk):
+    if request.method == 'POST':
+        try:
+            todo = Todo.objects.get(pk=pk)
+            completed = request.POST.get('completed') == 'true'
+            todo.completed = completed
+            todo.completed_at = localtime() if completed else None
+            todo.save()
+            print(todo.completed_at)
+            return JsonResponse(
+                {
+                    'status': 'ok',
+                    'completed': todo.completed,
+                    'completed_at': todo.completed_at.strftime('%Y-%m-%d %H:%M') if todo.completed_at else ''
+                }
+            )
+        except Todo.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Todo not found'}, status=404)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
