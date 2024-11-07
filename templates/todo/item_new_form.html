@@ -1,0 +1,22 @@
+<form hx-post="{% url 'ajax_create_todo' %}"
+      hx-target="#todo-list"
+      hx-swap="afterbegin"
+      hx-on::after-request="document.getElementById('new-todo-form-container').innerHTML = ''"
+      class="d-flex flex-column mb-3">
+    <input type="text" name="title" class="form-control mb-2" placeholder="Title">
+    <textarea name="description" class="form-control mb-2" placeholder="Description"></textarea>
+    <div class="d-flex">
+        <button type="submit" class="btn btn-sm btn-primary me-2">Add Todo</button>
+
+        <!-- Cancel Button to Close the Form -->
+        <button
+            type="button" class="btn btn-sm btn-secondary"
+            hx-get="{% url 'ajax_cancel_new_todo' %}"
+            hx-target="#new-todo-form-container"
+            hx-swap="innerHTML"
+        >
+            Cancel
+        </button>
+
+    </div>
+</form>
