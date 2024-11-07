@@ -18,16 +18,8 @@
                             <p class="mb-1 text-muted todo-description">{{ todo.description }}</p>
                         </div>
                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="todo-completed-checkbox me-2 form-check-input" data-id="{{ todo.pk }}" {% if todo.completed %}checked{% endif %}>
-                            <span id="badge-{{ todo.pk }}" class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
-                                 {% if todo.completed %}
-                                Completed on {{ todo.completed_at|date:"Y-m-d H:i" }}
-                            {% else %}
-                                Not Completed
-                            {% endif %}
-                            </span>
-                            <button class="btn btn-primary btn-sm ms-3 edit-todo-button" data-id="{{ todo.pk }}">Edit</button>
-                            <button class="btn btn-danger btn-sm ms-3 delete-todo-button" data-id="{{ todo.pk }}">Delete</button>
+                            {% include "todo/item_checkbox.html" %}
+                            {% include "todo/item_action_buttons.html" %}
                         </div>
                     </div>
                 </li>
