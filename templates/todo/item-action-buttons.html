@@ -1,4 +1,11 @@
 <button
+    class="btn btn-sm btn-outline-primary ms-3"
+    hx-get="{% url 'ajax_edit_todo' todo.pk %}"
+    hx-target="#todo-item-{{ todo.pk }}"
+    hx-swap="innerHTML">
+    Edit
+</button>
+<button
     class="btn btn-sm btn-danger ms-3"
     hx-delete="{% url 'ajax_delete' todo.pk %}"
     hx-target="closest li"

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, QueryDict
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from django.template.loader import render_to_string
@@ -51,6 +51,7 @@ def ajax_complete_todo_view(request, pk):
             return HttpResponse("Todo not found", status=404)
     return HttpResponse("Invalid request", status=400)
 
+
 @csrf_exempt
 def ajax_delete_todo_view(request, pk):
     if request.method == 'DELETE':
@@ -61,3 +62,31 @@ def ajax_delete_todo_view(request, pk):
         except Todo.DoesNotExist:
             return HttpResponse("Todo not found", status=404)
     return HttpResponse("Invalid request", status=400)
+
+
+@csrf_exempt
+def ajax_edit_todo_view(request, pk):
+    try:
+        todo = Todo.objects.get(pk=pk)
+        if request.method == 'GET':
+            html = render_to_string('todo/item_edit_form.html', {'todo': todo})
+            return HttpResponse(html)
+        elif request.method == 'PUT':
+            data = QueryDict(request.body)
+            todo.title = data.get('title')
+            todo.description = data.get('description')
+            todo.save()
+            html = render_to_string('todo/item.html', {'todo': todo})
+            return HttpResponse(html)
+    except Todo.DoesNotExist:
+        return HttpResponse("Todo not found", status=404)
+    return HttpResponse("Invalid request", status=400)
+
+@csrf_exempt
+def ajax_cancel_edit_todo_view(request, pk):
+    try:
+        todo = Todo.objects.get(pk=pk)
+        html = render_to_string('todo/item.html', {'todo': todo})
+        return HttpResponse(html)
+    except Todo.DoesNotExist:
+        return HttpResponse("Todo not found", status=404)
