@@ -9,7 +9,7 @@
 <span id="badge-{{ todo.pk }}"
       class="badge {% if todo.completed %}bg-success{% else %}bg-warning{% endif %}">
     {% if todo.completed %}
-        Completed on {{ todo.completed_at|date:"Y-m-d H:i:s" }}
+        Completed on {{ todo.completed_at|date:"Y-m-d H:i" }}
     {% else %}
         Not Completed
     {% endif %}
