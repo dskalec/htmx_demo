@@ -90,3 +90,29 @@ def ajax_cancel_edit_todo_view(request, pk):
         return HttpResponse(html)
     except Todo.DoesNotExist:
         return HttpResponse("Todo not found", status=404)
+
+
+@csrf_exempt
+def ajax_new_todo_form_view(request):
+    """ Renders the new todo form for htmx """
+    html = render_to_string("todo/item_new_form.html")
+    return HttpResponse(html)
+
+
+@csrf_exempt
+def ajax_create_todo_view(request):
+    """ Creates a new todo and returns the new item HTML """
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+
+        if title:
+            todo = Todo.objects.create(title=title, description=description)
+            html = render_to_string("todo/item.html", {"todo": todo})
+            return HttpResponse(html)
+
+    return HttpResponse("Invalid request", status=400)
+
+
+def ajax_cancel_new_todo_view(request):
+    return HttpResponse("")

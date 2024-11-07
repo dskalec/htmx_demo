@@ -7,12 +7,20 @@
 <div class="card">
     <div class="card-body">
         <h2 class="card-title">Todo List</h2>
-        <a href="{% url "todo_add" %}" class="btn btn-success mb-3">Add New Task</a>
-        <ul class="list-group">
+        <!-- Button to Show the Form for Creating a New Todo -->
+        <button class="btn btn-success mb-3"
+                hx-get="{% url 'ajax_new_todo_form' %}"
+                hx-target="#new-todo-form-container"
+                hx-swap="innerHTML">
+            Add New TODO
+        </button>
+
+        <!-- Container for the New Todo Form -->
+        <div id="new-todo-form-container"></div>
+
+        <ul class="list-group" id="todo-list">
             {% for todo in todos %}
-                <li class="list-group-item">
-                    {% include "todo/item.html" with todo=todo %}
-                </li>
+                {% include "todo/item.html" with todo=todo %}
             {% endfor %}
         </ul>
     </div>
