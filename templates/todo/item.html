@@ -1,0 +1,12 @@
+<div id="todo-item-{{ todo.pk }}" class="d-flex justify-content-between align-items-center">
+    <div>
+        <h5 class="mb-1">{{ todo.title }}</h5>
+        <p class="mb-1 text-muted">{{ todo.description }}</p>
+    </div>
+    <div class="d-flex align-items-center">
+        <div id="todo-checkbox-container-{{ todo.pk }}">
+             {% include "todo/item_checkbox.html" %}
+        </div>
+         {% include "todo/item-action-buttons.html" with todo=todo %}
+    </div>
+</div>
